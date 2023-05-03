@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function startGame() {
+            var userInput = prompt("Enter a number between 1 and 100:");
+
+            if (userInput === null) {
+                return; // User canceled the prompt
+            }
+
+            var number = parseInt(userInput);
+
+            if (isNaN(number) || number < 1 || number > 100) {
+                prompt("Invalid number. Please enter a number between 1 and 100.");
+                return;
+            }
+
+
+            var computerguess;
+            var attempts = 0;
+            var maxAttempts = 5;
+            var won = false;
+            var guess = [];
+
+            while (attempts < maxAttempts) {
+                computerguess = Math.floor(Math.random() * 100) + 1;
+                guess.push(computerguess);
+
+                if (computerguess === number) {
+                    won = true;
+                    break;
+                }
+
+                attempts++;
+            }
+
+            var resultMessage = "Number entered: " + number + "<br><br>";
+            resultMessage += "Computer's guesses:<br>" + guess.join("<br>") + "<br><br>";
+
+            if (won) {
+                resultMessage += "Computer won!";
+            } else {
+                resultMessage += "You won!";
+            }
+
+            document.getElementById('result').innerHTML = resultMessage;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Number Guessing Game</h1>
+    <button onclick="startGame()">Start Game</button>
+    <div id="result"></div>
+</body>
+</html>
